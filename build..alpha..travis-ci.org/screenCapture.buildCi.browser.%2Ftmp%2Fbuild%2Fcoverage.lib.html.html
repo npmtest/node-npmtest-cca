@@ -1,0 +1,898 @@
+<html lang="en"><head>
+    <title>Code coverage report for node-npmtest-cca/node_modules/cca/src/push-to-harness.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-cca">npmtest-cca (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-cca/node_modules/cca/src/push-to-harness.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">14.88% <small>(18 / 121)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">2.08% <small>(1 / 48)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 28)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">14.88% <small>(18 / 121)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../index.html">All files</a> » <a href="index.html">node-npmtest-cca/node_modules/cca/src/</a> » push-to-harness.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tbody><tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226</td><td class="line-coverage"><span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var fs = require('fs');
+var path = require('path');
+var Q = require('q');
+var debounce = require('debounce');
+var utils = require('./utils');
+var child_process = require('child_process');
+&nbsp;
+// Returns a promise.
+module.exports = exports = <span class="fstat-no" title="function not covered">function push(target, watch) {</span>
+<span class="cstat-no" title="statement not covered">  var argsAsJson = JSON.stringify([].slice.call(arguments));</span>
+<span class="cstat-no" title="statement not covered">  return checkFileHandleLimit()</span>
+  .then(<span class="fstat-no" title="function not covered">function(fileHandleLimit) {</span>
+<span class="cstat-no" title="statement not covered">    if (fileHandleLimit &lt; 10000 &amp;&amp; watch) {</span>
+<span class="cstat-no" title="statement not covered">      return relaunchWithBiggerUlimit(argsAsJson)</span>
+      .then(<span class="fstat-no" title="function not covered">function() {</span>
+<span class="cstat-no" title="statement not covered">        return true;</span>
+      }, <span class="fstat-no" title="function not covered">function() {</span>
+        // Setting ulimit can fail, so just continue on if it does.
+      });
+    }
+  }).then(<span class="fstat-no" title="function not covered">function(done) {</span>
+<span class="cstat-no" title="statement not covered">    if (done) {</span>
+<span class="cstat-no" title="statement not covered">      return;</span>
+    }
+<span class="cstat-no" title="statement not covered">    target = !target || Array.isArray(target) ? target : [target];</span>
+<span class="cstat-no" title="statement not covered">    var ret = Q.when(target);</span>
+<span class="cstat-no" title="statement not covered">    if (!target) {</span>
+<span class="cstat-no" title="statement not covered">      ret = extractTargets();</span>
+    }
+<span class="cstat-no" title="statement not covered">    return ret.then(<span class="fstat-no" title="function not covered">function(targets) {</span></span>
+<span class="cstat-no" title="statement not covered">      return createSession(targets);</span>
+    }).then(<span class="fstat-no" title="function not covered">function(session) {</span>
+      // Push the app and force a launch, even if it hasn't changed from a previous launch, since the app is being pushed for the first time.
+<span class="cstat-no" title="statement not covered">      return pushAll(session.clientInfos, /* forceLaunch */ true)</span>
+      .then(<span class="fstat-no" title="function not covered">function() {</span>
+<span class="cstat-no" title="statement not covered">        if (watch) {</span>
+<span class="cstat-no" title="statement not covered">          return watchFiles(session);</span>
+        }
+      });
+    });
+  });
+};
+&nbsp;
+<span class="fstat-no" title="function not covered">function extractTargets() {</span>
+  // TODO: Use adbkit for smarter auto-detection.
+<span class="cstat-no" title="statement not covered">  var PushClient = require('chrome-app-developer-tool-client');</span>
+<span class="cstat-no" title="statement not covered">  return PushClient.detectAdbTargets()</span>
+  .then(<span class="fstat-no" title="function not covered">function(targets) {</span>
+<span class="cstat-no" title="statement not covered">      if (!targets.length) {</span>
+<span class="cstat-no" title="statement not covered">          console.warn('No connected android devices detected. Defaulting to localhost.');</span>
+<span class="cstat-no" title="statement not covered">          targets = ['localhost:2424'];</span>
+      }
+<span class="cstat-no" title="statement not covered">      return targets;</span>
+  }, <span class="fstat-no" title="function not covered">function() {</span>
+<span class="cstat-no" title="statement not covered">      console.warn('Could not use adb to detect connected devices');</span>
+<span class="cstat-no" title="statement not covered">      return ['localhost:2424'];</span>
+  });
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function createSession(targets) {</span>
+<span class="cstat-no" title="statement not covered">  var PushClient = require('chrome-app-developer-tool-client');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  var i = 0;</span>
+<span class="cstat-no" title="statement not covered">  var ret = {</span>
+    platforms: [],
+    clientInfos: [],
+    appType: null
+  };
+&nbsp;
+<span class="cstat-no" title="statement not covered">  var chromeAppPushRoot = null;</span>
+<span class="cstat-no" title="statement not covered">  if (fs.existsSync('www/manifest.json')) {</span>
+<span class="cstat-no" title="statement not covered">    chromeAppPushRoot = 'www';</span>
+  } else <span class="cstat-no" title="statement not covered">if (fs.existsSync('manifest.json')) {</span>
+<span class="cstat-no" title="statement not covered">    chromeAppPushRoot = '.';</span>
+  }
+<span class="cstat-no" title="statement not covered">  ret.appType = chromeAppPushRoot ? 'chrome' : 'cordova';</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  var platformMap = Object.create(null);</span>
+<span class="fstat-no" title="function not covered">  function createClient() {</span>
+<span class="cstat-no" title="statement not covered">    var target = targets[i++];</span>
+<span class="cstat-no" title="statement not covered">    if (!target) {</span>
+<span class="cstat-no" title="statement not covered">      ret.platforms = Object.keys(platformMap);</span>
+<span class="cstat-no" title="statement not covered">      return ret;</span>
+    }
+<span class="cstat-no" title="statement not covered">    var newClient = new PushClient(target);</span>
+<span class="cstat-no" title="statement not covered">    return newClient.info()</span>
+    .then(<span class="fstat-no" title="function not covered">function(response) {</span>
+<span class="cstat-no" title="statement not covered">      var infoJson = response.body;</span>
+<span class="cstat-no" title="statement not covered">      var platform = infoJson['platform'];</span>
+<span class="cstat-no" title="statement not covered">      platformMap[platform] = true;</span>
+<span class="cstat-no" title="statement not covered">      if (ret.appType == 'chrome') {</span>
+<span class="cstat-no" title="statement not covered">        ret.clientInfos.push({</span>
+            platform: platform,
+            client: newClient,
+            pushSession: newClient.createPushSession(chromeAppPushRoot),
+            watchDir: chromeAppPushRoot
+        });
+      } else {
+        // Vanilla Cordova project.
+<span class="cstat-no" title="statement not covered">        var wwwDir = utils.assetDirForPlatform(platform);</span>
+<span class="cstat-no" title="statement not covered">        ret.clientInfos.push({</span>
+            platform: platform,
+            client: newClient,
+            pushSession: newClient.createPushSession('.'), // push client figures out to use platforms/
+            watchDir: wwwDir
+        });
+      }
+<span class="cstat-no" title="statement not covered">      return createClient();</span>
+    }, <span class="fstat-no" title="function not covered">function(error) {</span>
+<span class="cstat-no" title="statement not covered">      if (error.code === 'ECONNREFUSED') {</span>
+<span class="cstat-no" title="statement not covered">        console.warn();</span>
+<span class="cstat-no" title="statement not covered">        console.warn('Could not connect to device at ' + target);</span>
+<span class="cstat-no" title="statement not covered">        console.warn('For a USB connected Android device, try running: adb forward tcp:2424 tcp:2424');</span>
+<span class="cstat-no" title="statement not covered">        console.warn('For a networked device, use --target=DEVICE_IP_ADDRESS');</span>
+      } else <span class="cstat-no" title="statement not covered">if (error.code === 'ECONNRESET') {</span>
+<span class="cstat-no" title="statement not covered">        console.warn('\nPlease make sure that the Chrome App Developer Tool for Mobile is running on your device.');</span>
+      } else {
+<span class="cstat-no" title="statement not covered">        console.error(error);</span>
+      }
+<span class="cstat-no" title="statement not covered">      process.exit();</span>
+    });
+  }
+<span class="cstat-no" title="statement not covered">  return createClient();</span>
+}
+&nbsp;
+var pushInProgress = false;
+var pushAgainWhenDone = false;
+// gaze uses fs.watchFile, which is classified as "unstable" (http://goo.gl/H16j5l).
+// It sometimes causes multiple change events to be fired, and they're far enough apart that debouncing is ineffective.
+// To deal with this, CADT-client's push functionality doesn't relaunch an app with no changes unless `forceLaunch` is true.
+// Calls to `pushAll` can specify whether to force a launch.
+<span class="fstat-no" title="function not covered">function pushAll(clientInfos, forceLaunch) {</span>
+<span class="cstat-no" title="statement not covered">  if (pushInProgress) {</span>
+<span class="cstat-no" title="statement not covered">    pushAgainWhenDone = true;</span>
+<span class="cstat-no" title="statement not covered">    return Q();</span>
+  }
+<span class="cstat-no" title="statement not covered">  pushInProgress = true;</span>
+<span class="cstat-no" title="statement not covered">  var allPromises = clientInfos.map(<span class="fstat-no" title="function not covered">function(clientInfo) {</span></span>
+<span class="cstat-no" title="statement not covered">    try {</span>
+<span class="cstat-no" title="statement not covered">      return clientInfo.pushSession.push(forceLaunch);</span>
+    } catch (e) {
+<span class="cstat-no" title="statement not covered">      if (/Not a Cordova project/.test(e)) {</span>
+<span class="cstat-no" title="statement not covered">        console.warn('Please navigate to a Chrome App or Cordova project, and then try pushing again.');</span>
+      } else {
+<span class="cstat-no" title="statement not covered">        console.error(e);</span>
+      }
+<span class="cstat-no" title="statement not covered">      process.exit();</span>
+    }
+  });
+<span class="cstat-no" title="statement not covered">  return Q.all(allPromises)</span>
+  .then(<span class="fstat-no" title="function not covered">function() {</span>
+<span class="cstat-no" title="statement not covered">    if (pushAgainWhenDone) {</span>
+<span class="cstat-no" title="statement not covered">      process.nextTick(<span class="fstat-no" title="function not covered">function() {</span></span>
+        // Push, but don't force a launch if the app hasn't changed.
+<span class="cstat-no" title="statement not covered">        pushAll(clientInfos, /* forceLaunch */ false).done();</span>
+      });
+    }
+<span class="cstat-no" title="statement not covered">    pushInProgress = false;</span>
+<span class="cstat-no" title="statement not covered">    pushAgainWhenDone = false;</span>
+  }, <span class="fstat-no" title="function not covered">function(e) {</span>
+<span class="cstat-no" title="statement not covered">    pushInProgress = false;</span>
+<span class="cstat-no" title="statement not covered">    pushAgainWhenDone = false;</span>
+<span class="cstat-no" title="statement not covered">    throw e;</span>
+  });
+}
+&nbsp;
+var debouncedPushAll = debounce(<span class="fstat-no" title="function not covered">function(clientInfos) {</span>
+  // Push, but don't force a launch if the app hasn't changed.
+<span class="cstat-no" title="statement not covered">  pushAll(clientInfos, /* forceLaunch */ false).done();</span>
+}, 50, false);
+&nbsp;
+<span class="fstat-no" title="function not covered">function watchFiles(session) {</span>
+<span class="cstat-no" title="statement not covered">  var gaze = require('gaze');</span>
+<span class="cstat-no" title="statement not covered">  var deferred = Q.defer();</span>
+&nbsp;
+  // TODO: This doesn't work for vanilla cordova apps + multiple platforms.
+<span class="cstat-no" title="statement not covered">  var watchDir = session.clientInfos[0].watchDir;</span>
+  // Note: gaze doesn't work well with ./ prefix nor with absolute paths
+  // (https://github.com/gruntjs/grunt-contrib-watch/issues/166)
+  // path.join() is smart enough to remove the ./ prefix.
+<span class="cstat-no" title="statement not covered">  gaze(path.join(watchDir, '**', '*'), <span class="fstat-no" title="function not covered">function(err, watcher) {</span></span>
+<span class="cstat-no" title="statement not covered">    console.log('Watching for changes.');</span>
+<span class="cstat-no" title="statement not covered">    watcher.on('all', <span class="fstat-no" title="function not covered">function(event, filepath) {</span></span>
+<span class="cstat-no" title="statement not covered">      debouncedPushAll(session.clientInfos);</span>
+    });
+  });
+  // TODO: Capture Ctrl-C and resolve the promise.
+<span class="cstat-no" title="statement not covered">  return deferred.promise;</span>
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function checkFileHandleLimit() {</span>
+<span class="cstat-no" title="statement not covered">  var deferred = Q.defer();</span>
+<span class="cstat-no" title="statement not covered">  if (process.platform != 'win32' &amp;&amp; process.env['SHELL']) {</span>
+    // gaze opens a lot of file handles, and the default on OS X is too small (EMFILE exceptions).
+    // NOTE: This is fixed in node 0.11, and is a problem only on node 0.10.
+<span class="cstat-no" title="statement not covered">    child_process.exec('ulimit -n', <span class="fstat-no" title="function not covered">function(error, stdout, stderr) {</span></span>
+<span class="cstat-no" title="statement not covered">      var curLimit = !error &amp;&amp; +stdout;</span>
+<span class="cstat-no" title="statement not covered">      deferred.resolve(curLimit || Infinity);</span>
+    });
+  } else {
+<span class="cstat-no" title="statement not covered">    deferred.resolve(Infinity);</span>
+  }
+<span class="cstat-no" title="statement not covered">  return deferred.promise;</span>
+}
+&nbsp;
+<span class="fstat-no" title="function not covered">function relaunchWithBiggerUlimit(argsAsJson) {</span>
+  // re-run with the new ulimit
+<span class="cstat-no" title="statement not covered">  var deferred = Q.defer();</span>
+<span class="cstat-no" title="statement not covered">  var args = ['-c', 'ulimit -n 10240 &amp;&amp; exec "' + process.argv[0] + '" "' + __filename + '" "' + argsAsJson.replace(/"/g, '@') + '"'];</span>
+<span class="cstat-no" title="statement not covered">  var child = child_process.spawn('sh', args, { stdio: 'inherit' });</span>
+<span class="cstat-no" title="statement not covered">  child.on('close', <span class="fstat-no" title="function not covered">function(code) {</span></span>
+<span class="cstat-no" title="statement not covered">    if (code) {</span>
+<span class="cstat-no" title="statement not covered">      deferred.reject(code);</span>
+    } else {
+<span class="cstat-no" title="statement not covered">      deferred.resolve(code);</span>
+    }
+  });
+<span class="cstat-no" title="statement not covered">  return deferred.promise;</span>
+}
+&nbsp;
+// Gets called from EMFILE re-launch
+<span class="missing-if-branch" title="if path not taken">I</span>if (require.main === module) {
+<span class="cstat-no" title="statement not covered">  exports.apply(this, JSON.parse(process.argv[2].replace(/@/g, '"'))).done();</span>
+}
+&nbsp;
+&nbsp;</pre></td></tr>
+</tbody></table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Tue Apr 18 2017 08:39:56 GMT+0000 (UTC)</div>
+</div>
+
+
+</body></html>
