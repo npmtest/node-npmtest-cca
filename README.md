@@ -1,6 +1,6 @@
 # npmtest-cca
 
-#### test coverage for  [cca (v0.8.1)](https://github.com/MobileChromeApps/mobile-chrome-apps#readme)  [![npm package](https://img.shields.io/npm/v/npmtest-cca.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-cca) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-cca.svg)](https://travis-ci.org/npmtest/node-npmtest-cca)
+#### basic test coverage for  [cca (v0.8.1)](https://github.com/MobileChromeApps/mobile-chrome-apps#readme)  [![npm package](https://img.shields.io/npm/v/npmtest-cca.svg?style=flat-square)](https://www.npmjs.org/package/npmtest-cca) [![travis-ci.org build-status](https://api.travis-ci.org/npmtest/node-npmtest-cca.svg)](https://travis-ci.org/npmtest/node-npmtest-cca)
 
 #### Run Chrome Apps on mobile using Apache Cordova
 
@@ -10,7 +10,7 @@
 |--:|:--|
 | coverage : | [![istanbul-coverage](https://npmtest.github.io/node-npmtest-cca/build/coverage.badge.svg)](https://npmtest.github.io/node-npmtest-cca/build/coverage.html/index.html)|
 | test-report : | [![test-report](https://npmtest.github.io/node-npmtest-cca/build/test-report.badge.svg)](https://npmtest.github.io/node-npmtest-cca/build/test-report.html)|
-| build-artifacts : | [![build-artifacts](https://npmtest.github.io/node-npmtest-cca/glyphicons_144_folder_open.png)](https://github.com/npmtest/node-npmtest-cca/tree/gh-pages/build)|
+| test-server-github : | [![github.com test-server](https://npmtest.github.io/node-npmtest-cca/GitHub-Mark-32px.png)](https://npmtest.github.io/node-npmtest-cca/build/app/index.html) | | build-artifacts : | [![build-artifacts](https://npmtest.github.io/node-npmtest-cca/glyphicons_144_folder_open.png)](https://github.com/npmtest/node-npmtest-cca/tree/gh-pages/build)|
 
 - [https://npmtest.github.io/node-npmtest-cca/build/coverage.html/index.html](https://npmtest.github.io/node-npmtest-cca/build/coverage.html/index.html)
 
